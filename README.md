@@ -109,3 +109,7 @@ constrain(
 
 Calling `setVariableName(_: for:)` outsides a `constrain` closure doesn't
 have any work.
+
+## License
+
+MIT License
