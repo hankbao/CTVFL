@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C5D55B51F71FE9300592173 /* CTVFLLexiconType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5D55B41F71FE9300592173 /* CTVFLLexiconType.swift */; };
+		9C5D55B61F71FE9300592173 /* CTVFLLexiconType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5D55B41F71FE9300592173 /* CTVFLLexiconType.swift */; };
+		9C5D55B71F71FE9300592173 /* CTVFLLexiconType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5D55B41F71FE9300592173 /* CTVFLLexiconType.swift */; };
 		9CB77A461F71548A0052448F /* CTVFL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CB77A3C1F71548A0052448F /* CTVFL.framework */; };
 		9CB77A621F7154970052448F /* CTVFL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CB77A591F7154970052448F /* CTVFL.framework */; };
 		9CB77A7E1F7154A60052448F /* CTVFL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CB77A751F7154A50052448F /* CTVFL.framework */; };
@@ -31,12 +34,9 @@
 		9CB77ABB1F715ECC0052448F /* CTVFLPredication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ABA1F715ECC0052448F /* CTVFLPredication.swift */; };
 		9CB77ABC1F715ECC0052448F /* CTVFLPredication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ABA1F715ECC0052448F /* CTVFLPredication.swift */; };
 		9CB77ABD1F715ECC0052448F /* CTVFLPredication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ABA1F715ECC0052448F /* CTVFLPredication.swift */; };
-		9CB77ABF1F715ED90052448F /* CTVFLConnectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ABE1F715ED90052448F /* CTVFLConnectable.swift */; };
-		9CB77AC01F715ED90052448F /* CTVFLConnectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ABE1F715ED90052448F /* CTVFLConnectable.swift */; };
-		9CB77AC11F715ED90052448F /* CTVFLConnectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ABE1F715ED90052448F /* CTVFLConnectable.swift */; };
-		9CB77AC31F715F2E0052448F /* CTVFLVisualFormatConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77AC21F715F2E0052448F /* CTVFLVisualFormatConvertible.swift */; };
-		9CB77AC41F715F2E0052448F /* CTVFLVisualFormatConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77AC21F715F2E0052448F /* CTVFLVisualFormatConvertible.swift */; };
-		9CB77AC51F715F2E0052448F /* CTVFLVisualFormatConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77AC21F715F2E0052448F /* CTVFLVisualFormatConvertible.swift */; };
+		9CB77ABF1F715ED90052448F /* CTVFLLexicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ABE1F715ED90052448F /* CTVFLLexicon.swift */; };
+		9CB77AC01F715ED90052448F /* CTVFLLexicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ABE1F715ED90052448F /* CTVFLLexicon.swift */; };
+		9CB77AC11F715ED90052448F /* CTVFLLexicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ABE1F715ED90052448F /* CTVFLLexicon.swift */; };
 		9CB77AC71F7168410052448F /* CTVFLInlineContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77AC61F7168410052448F /* CTVFLInlineContext.swift */; };
 		9CB77AC81F7168410052448F /* CTVFLInlineContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77AC61F7168410052448F /* CTVFLInlineContext.swift */; };
 		9CB77AC91F7168420052448F /* CTVFLInlineContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77AC61F7168410052448F /* CTVFLInlineContext.swift */; };
@@ -46,6 +46,12 @@
 		9CB77AD71F7179A20052448F /* CTVFLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77AD61F7179A20052448F /* CTVFLTests.swift */; };
 		9CB77AD81F7179A20052448F /* CTVFLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77AD61F7179A20052448F /* CTVFLTests.swift */; };
 		9CB77AD91F7179A20052448F /* CTVFLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77AD61F7179A20052448F /* CTVFLTests.swift */; };
+		9CB77ADB1F71F13C0052448F /* CTVFLVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ADA1F71F13C0052448F /* CTVFLVariable.swift */; };
+		9CB77ADC1F71F13C0052448F /* CTVFLVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ADA1F71F13C0052448F /* CTVFLVariable.swift */; };
+		9CB77ADD1F71F13C0052448F /* CTVFLVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ADA1F71F13C0052448F /* CTVFLVariable.swift */; };
+		9CEB1B7E1F720BF8001BC581 /* CTVFLVisualFormatConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB1B7D1F720BF8001BC581 /* CTVFLVisualFormatConvertible.swift */; };
+		9CEB1B7F1F720BF8001BC581 /* CTVFLVisualFormatConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB1B7D1F720BF8001BC581 /* CTVFLVisualFormatConvertible.swift */; };
+		9CEB1B801F720BF8001BC581 /* CTVFLVisualFormatConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB1B7D1F720BF8001BC581 /* CTVFLVisualFormatConvertible.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +79,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9C5D55B41F71FE9300592173 /* CTVFLLexiconType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLLexiconType.swift; sourceTree = "<group>"; };
 		9CB77A3C1F71548A0052448F /* CTVFL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CTVFL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CB77A451F71548A0052448F /* CTVFL-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CTVFL-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CB77A591F7154970052448F /* CTVFL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CTVFL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,11 +95,12 @@
 		9CB77AAA1F7158790052448F /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		9CB77AAE1F7158B10052448F /* CTVFLConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLConstraint.swift; sourceTree = "<group>"; };
 		9CB77ABA1F715ECC0052448F /* CTVFLPredication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLPredication.swift; sourceTree = "<group>"; };
-		9CB77ABE1F715ED90052448F /* CTVFLConnectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLConnectable.swift; sourceTree = "<group>"; };
-		9CB77AC21F715F2E0052448F /* CTVFLVisualFormatConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLVisualFormatConvertible.swift; sourceTree = "<group>"; };
+		9CB77ABE1F715ED90052448F /* CTVFLLexicon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLLexicon.swift; sourceTree = "<group>"; };
 		9CB77AC61F7168410052448F /* CTVFLInlineContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLInlineContext.swift; sourceTree = "<group>"; };
 		9CB77ACE1F716B660052448F /* CTVFLPredicate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLPredicate.swift; sourceTree = "<group>"; };
 		9CB77AD61F7179A20052448F /* CTVFLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLTests.swift; sourceTree = "<group>"; };
+		9CB77ADA1F71F13C0052448F /* CTVFLVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLVariable.swift; sourceTree = "<group>"; };
+		9CEB1B7D1F720BF8001BC581 /* CTVFLVisualFormatConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLVisualFormatConvertible.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,9 +188,11 @@
 			children = (
 				9CB77A911F7154CE0052448F /* Info.plist */,
 				9CB77A961F7155260052448F /* CTVFL.swift */,
-				9CB77AC21F715F2E0052448F /* CTVFLVisualFormatConvertible.swift */,
+				9CEB1B7D1F720BF8001BC581 /* CTVFLVisualFormatConvertible.swift */,
+				9CB77ADA1F71F13C0052448F /* CTVFLVariable.swift */,
 				9CB77AA21F7155AE0052448F /* CTVFLPredicatable.swift */,
-				9CB77ABE1F715ED90052448F /* CTVFLConnectable.swift */,
+				9CB77ABE1F715ED90052448F /* CTVFLLexicon.swift */,
+				9C5D55B41F71FE9300592173 /* CTVFLLexiconType.swift */,
 				9CB77ABA1F715ECC0052448F /* CTVFLPredication.swift */,
 				9CB77ACE1F716B660052448F /* CTVFLPredicate.swift */,
 				9CB77AC61F7168410052448F /* CTVFLInlineContext.swift */,
@@ -445,10 +455,12 @@
 				9CB77A971F7155260052448F /* CTVFL.swift in Sources */,
 				9CB77AC71F7168410052448F /* CTVFLInlineContext.swift in Sources */,
 				9CB77A9B1F71556D0052448F /* CTVFLGlobalContext.swift in Sources */,
+				9C5D55B51F71FE9300592173 /* CTVFLLexiconType.swift in Sources */,
+				9CEB1B801F720BF8001BC581 /* CTVFLVisualFormatConvertible.swift in Sources */,
 				9CB77AAB1F7158790052448F /* Utilities.swift in Sources */,
 				9CB77AA31F7155AE0052448F /* CTVFLPredicatable.swift in Sources */,
-				9CB77AC31F715F2E0052448F /* CTVFLVisualFormatConvertible.swift in Sources */,
-				9CB77ABF1F715ED90052448F /* CTVFLConnectable.swift in Sources */,
+				9CB77ABF1F715ED90052448F /* CTVFLLexicon.swift in Sources */,
+				9CB77ADB1F71F13C0052448F /* CTVFLVariable.swift in Sources */,
 				9CB77ACF1F716B660052448F /* CTVFLPredicate.swift in Sources */,
 				9CB77ABB1F715ECC0052448F /* CTVFLPredication.swift in Sources */,
 				9CB77A9F1F7155970052448F /* CTVFLConstraintGroup.swift in Sources */,
@@ -471,10 +483,12 @@
 				9CB77A981F7155260052448F /* CTVFL.swift in Sources */,
 				9CB77AC81F7168410052448F /* CTVFLInlineContext.swift in Sources */,
 				9CB77A9C1F71556D0052448F /* CTVFLGlobalContext.swift in Sources */,
+				9C5D55B61F71FE9300592173 /* CTVFLLexiconType.swift in Sources */,
+				9CEB1B7E1F720BF8001BC581 /* CTVFLVisualFormatConvertible.swift in Sources */,
 				9CB77AAC1F7158790052448F /* Utilities.swift in Sources */,
 				9CB77AA41F7155AE0052448F /* CTVFLPredicatable.swift in Sources */,
-				9CB77AC41F715F2E0052448F /* CTVFLVisualFormatConvertible.swift in Sources */,
-				9CB77AC01F715ED90052448F /* CTVFLConnectable.swift in Sources */,
+				9CB77AC01F715ED90052448F /* CTVFLLexicon.swift in Sources */,
+				9CB77ADC1F71F13C0052448F /* CTVFLVariable.swift in Sources */,
 				9CB77AD01F716B660052448F /* CTVFLPredicate.swift in Sources */,
 				9CB77ABC1F715ECC0052448F /* CTVFLPredication.swift in Sources */,
 				9CB77AA01F7155970052448F /* CTVFLConstraintGroup.swift in Sources */,
@@ -497,10 +511,12 @@
 				9CB77A991F7155260052448F /* CTVFL.swift in Sources */,
 				9CB77AC91F7168420052448F /* CTVFLInlineContext.swift in Sources */,
 				9CB77A9D1F71556D0052448F /* CTVFLGlobalContext.swift in Sources */,
+				9C5D55B71F71FE9300592173 /* CTVFLLexiconType.swift in Sources */,
+				9CEB1B7F1F720BF8001BC581 /* CTVFLVisualFormatConvertible.swift in Sources */,
 				9CB77AAD1F7158790052448F /* Utilities.swift in Sources */,
 				9CB77AA51F7155AE0052448F /* CTVFLPredicatable.swift in Sources */,
-				9CB77AC51F715F2E0052448F /* CTVFLVisualFormatConvertible.swift in Sources */,
-				9CB77AC11F715ED90052448F /* CTVFLConnectable.swift in Sources */,
+				9CB77AC11F715ED90052448F /* CTVFLLexicon.swift in Sources */,
+				9CB77ADD1F71F13C0052448F /* CTVFLVariable.swift in Sources */,
 				9CB77AD11F716B660052448F /* CTVFLPredicate.swift in Sources */,
 				9CB77ABD1F715ECC0052448F /* CTVFLPredication.swift in Sources */,
 				9CB77AA11F7155970052448F /* CTVFLConstraintGroup.swift in Sources */,

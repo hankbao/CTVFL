@@ -32,6 +32,12 @@ class CTVFLTests: XCTestCase {
             
             withVFL(H: view1.that(200 ~ 20))
             
+            withVFL(H: |view1|)
+            
+            withVFL(H: |view1-|)
+            
+            withVFL(H: |-view1|)
+            
             withVFL(H: view1 | view2)
             
             withVFL(H: view1 - view2)

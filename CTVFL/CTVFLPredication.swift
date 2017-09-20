@@ -7,25 +7,19 @@
 
 import CoreGraphics
 
-public protocol CTVFLPredicating: CTVFLVisualFormatConvertible { }
+public protocol CTVFLPredicationProtocol: CTVFLVisualFormatConvertible { }
 
-public protocol CTVFLEqualLiteralPredicating: CTVFLPredicating, CTVFLPredicate { }
+public protocol CTVFLEqualLiteralPredication: CTVFLPredicationProtocol, CTVFLPredicate { }
 
-extension CTVFLEqualLiteralPredicating where Self: CustomStringConvertible {
-    public func _ctvfl_makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext, parenthesizesVariables: Bool) -> String {
-        return "\(self.description)"
-    }
-}
+extension Int: CTVFLEqualLiteralPredication {}
 
-extension Int: CTVFLEqualLiteralPredicating {}
+extension Float: CTVFLEqualLiteralPredication {}
 
-extension Float: CTVFLEqualLiteralPredicating {}
+extension Double: CTVFLEqualLiteralPredication {}
 
-extension Double: CTVFLEqualLiteralPredicating {}
+extension CGFloat: CTVFLEqualLiteralPredication {}
 
-extension CGFloat: CTVFLEqualLiteralPredicating {}
-
-public struct CTVFLPredication<P: CTVFLPredicate>: CTVFLPredicating {
+public struct CTVFLPredication<P: CTVFLPredicate>: CTVFLPredicationProtocol {
     internal typealias _Predicate = P
     
     internal enum _Relation: CustomStringConvertible {
@@ -59,9 +53,9 @@ public struct CTVFLPredication<P: CTVFLPredicate>: CTVFLPredicating {
         return .init(predicate: _predicate, relation: _relation, priority: priority)
     }
     
-    public func _ctvfl_makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext, parenthesizesVariables: Bool) -> String {
+    public func _makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext, parenthesizesVariables: Bool) -> String {
         let relation = _relation.description
-        let predicate = _predicate._ctvfl_makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: false)
+        let predicate = _predicate._makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: false)
         if _priority != .required {
             return "\(relation)\(predicate)@\(_priority.rawValue)"
         } else {
@@ -104,22 +98,22 @@ public func ~ <P>(lhs: CTVFLPredication<P>, rhs: CGFloat) -> CTVFLPredication<P>
 }
 
 // MARK: Updating Equal Literal Predicate's Priority
-public func ~ <P: CTVFLEqualLiteralPredicating>(lhs: P, rhs: Priority) -> CTVFLPredication<P> {
+public func ~ <P: CTVFLEqualLiteralPredication>(lhs: P, rhs: Priority) -> CTVFLPredication<P> {
     return .init(predicate: lhs, relation: .equal, priority: rhs)
 }
 
-public func ~ <P: CTVFLEqualLiteralPredicating>(lhs: P, rhs: Int) -> CTVFLPredication<P> {
+public func ~ <P: CTVFLEqualLiteralPredication>(lhs: P, rhs: Int) -> CTVFLPredication<P> {
     return lhs ~ Priority(Float(rhs))
 }
 
-public func ~ <P: CTVFLEqualLiteralPredicating>(lhs: P, rhs: Float) -> CTVFLPredication<P> {
+public func ~ <P: CTVFLEqualLiteralPredication>(lhs: P, rhs: Float) -> CTVFLPredication<P> {
     return lhs ~ Priority(rhs)
 }
 
-public func ~ <P: CTVFLEqualLiteralPredicating>(lhs: P, rhs: Double) -> CTVFLPredication<P> {
+public func ~ <P: CTVFLEqualLiteralPredication>(lhs: P, rhs: Double) -> CTVFLPredication<P> {
     return lhs ~ Priority(Float(rhs))
 }
 
-public func ~ <P: CTVFLEqualLiteralPredicating>(lhs: P, rhs: CGFloat) -> CTVFLPredication<P> {
+public func ~ <P: CTVFLEqualLiteralPredication>(lhs: P, rhs: CGFloat) -> CTVFLPredication<P> {
     return lhs ~ Priority(Float(rhs))
 }

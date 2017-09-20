@@ -6,38 +6,44 @@
 //
 
 // MARK: - Predicate
-public protocol CTVFLPredicatable: CTVFLVisualFormatConvertible {
-    func that(_ predications: CTVFLPredicating...) -> CTVFLPredicatedObject
+public protocol CTVFLPredicatable {
+    func that(_ predications: CTVFLPredicationProtocol...) -> CTVFLPredicatedVariable
 }
 
 extension View: CTVFLPredicatable {
     public func that(
-        _ predications: CTVFLPredicating...
-        ) -> CTVFLPredicatedObject
+        _ predications: CTVFLPredicationProtocol...
+        ) -> CTVFLPredicatedVariable
     {
-        return .init(object: self, predications: predications)
+        return .init(variable: .init(rawValue: self), predications: predications)
     }
 }
 
-public class CTVFLPredicatedObject: CTVFLConnectable, CTVFLVisualFormatConvertible {
-    internal let _object: CTVFLPredicatable
+public class CTVFLPredicatedVariable: CTVFLEdgeToEdgeLexicon, CTVFLSpacedLexicon {
+    public typealias _FirstLexiconType = CTVFLLexiconVariableType
     
-    internal let _predications: [CTVFLPredicating]
+    public typealias _LastLexiconType = CTVFLLexiconVariableType
     
-    internal init(object: CTVFLPredicatable, predications: [CTVFLPredicating]) {
-        _object = object
+    public typealias _SyntaxState = CTVFLSyntaxNotTerminated
+    
+    internal let _variable: CTVFLVariable
+    
+    internal let _predications: [CTVFLPredicationProtocol]
+    
+    internal init(variable: CTVFLVariable, predications: [CTVFLPredicationProtocol]) {
+        _variable = variable
         _predications = predications
     }
     
-    public func _ctvfl_makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext, parenthesizesVariables: Bool) -> String {
-        let object = _object._ctvfl_makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: false)
+    public func _makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext, parenthesizesVariables: Bool) -> String {
+        let variable = _variable._makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: false)
         let predications = _predications
-            .map({$0._ctvfl_makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: false)})
+            .map({$0._makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: false)})
             .joined(separator: ",")
         if parenthesizesVariables {
-            return "[\(object)(\(predications))]"
+            return "[\(variable)(\(predications))]"
         } else {
-            return "\(object)(\(predications))"
+            return "\(variable)(\(predications))"
         }
     }
 }

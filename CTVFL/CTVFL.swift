@@ -11,8 +11,6 @@
     import AppKit
 #endif
 
-public typealias CTVFLVariable = View
-
 // MARK: - Make and Install Constraint Group
 @discardableResult
 public func constrain(
@@ -50,15 +48,15 @@ public func setVariableName(
 
 // MARK: - Building Inline VFL Block
 @discardableResult
-public func withVFL(
-    V verticalDescription: @autoclosure ()-> CTVFLVisualFormatConvertible,
+public func withVFL<T: CTVFLLexicon>(
+    V verticalDescription: @autoclosure ()-> T,
     options: VFLOptions = []
     ) -> [NSLayoutConstraint]
 {
     let inlineContext = CTVFLInlineContext._push()
-    let outputable = verticalDescription()
+    let lexicon = verticalDescription()
     let visualFormat = _makeVisualFormat(
-        with: outputable,
+        with: lexicon,
         inlineContext: inlineContext,
         orientation: .vertical
     )
@@ -67,24 +65,24 @@ public func withVFL(
         withVisualFormat: visualFormat,
         options: options,
         metrics: nil,
-        views: inlineContext._variables
+        views: inlineContext._variables.mapValues({$0._view})
     )
     if let globalContext = CTVFLGlobalContext.shared {
-        globalContext.registerConstraints(constraints, with: inlineContext._variables.values)
+        globalContext.registerConstraints(constraints, with: inlineContext._variables.values.map({$0._view}))
     }
     return constraints
 }
 
 @discardableResult
-public func withVFL(
-    H horizontalDescription: @autoclosure ()-> CTVFLVisualFormatConvertible,
+public func withVFL<T: CTVFLLexicon>(
+    H horizontalDescription: @autoclosure ()-> T,
     options: VFLOptions = []
     ) -> [NSLayoutConstraint]
 {
     let inlineContext = CTVFLInlineContext._push()
-    let outputable = horizontalDescription()
+    let lexicon = horizontalDescription()
     let visualFormat = _makeVisualFormat(
-        with: outputable,
+        with: lexicon,
         inlineContext: inlineContext,
         orientation: .horizontal
     )
@@ -93,10 +91,10 @@ public func withVFL(
         withVisualFormat: visualFormat,
         options: options,
         metrics: nil,
-        views: inlineContext._variables
+        views: inlineContext._variables.mapValues({$0._view})
     )
     if let globalContext = CTVFLGlobalContext.shared {
-        globalContext.registerConstraints(constraints, with: inlineContext._variables.values)
+        globalContext.registerConstraints(constraints, with: inlineContext._variables.values.map({$0._view}))
     }
     return constraints
 }

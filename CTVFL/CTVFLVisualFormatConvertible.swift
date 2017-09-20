@@ -1,12 +1,19 @@
 //
-//  CTVFLVisualFormatConvertible.swift
+//  CTVFLVisualFormat.swift
 //  CTVFL
 //
 //  Created by WeZZard on 9/19/17.
 //
 
 public protocol CTVFLVisualFormatConvertible {
-    func _ctvfl_makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext, parenthesizesVariables: Bool) -> String
+    
+    func _makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext, parenthesizesVariables: Bool) -> String
+}
+
+extension CTVFLVisualFormatConvertible where Self: CustomStringConvertible {
+    public func _makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext, parenthesizesVariables: Bool) -> String {
+        return "\(self.description)"
+    }
 }
 
 internal enum VisualFormatOrientation {
@@ -14,13 +21,13 @@ internal enum VisualFormatOrientation {
     case horizontal
 }
 
-func _makeVisualFormat(
-    with outputable: CTVFLVisualFormatConvertible,
+internal func _makeVisualFormat<T: CTVFLLexicon>(
+    with lexicon: T,
     inlineContext: CTVFLInlineContext,
     orientation: VisualFormatOrientation
     ) -> String
 {
-    let primitiveVisualFormat = outputable._ctvfl_makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: true)
+    let primitiveVisualFormat = lexicon._makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: true)
     switch orientation {
     case .horizontal:
         return "H:\(primitiveVisualFormat)"
