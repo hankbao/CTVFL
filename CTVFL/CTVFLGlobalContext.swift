@@ -96,17 +96,18 @@ internal class CTVFLGlobalContext {
     {
         _assert(Thread.isMainThread)
         
-        if let hostView = views._commonAncestor {
-            if !ignoresTranslatingAutoresizingMaskIntoConstraints
-                && hostView.translatesAutoresizingMaskIntoConstraints
-            {
-                hostView.translatesAutoresizingMaskIntoConstraints = false
+        if !ignoresTranslatingAutoresizingMaskIntoConstraints {
+            for eachView in views {
+                if eachView.translatesAutoresizingMaskIntoConstraints {
+                    eachView.translatesAutoresizingMaskIntoConstraints = false
+                }
             }
-            
+        }
+        
+        if let hostView = views._commonAncestor {
             let installables: [CTVFLConstraint] = constraints.map {
                 .init(view: hostView, constraint: $0)
             }
-            
             cosntraints_.append(contentsOf: installables)
         } else {
             NSLog(
