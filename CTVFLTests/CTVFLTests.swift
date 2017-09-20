@@ -45,6 +45,8 @@ class CTVFLTests: XCTestCase {
             withVFL(H: view1 - 2 - view2.that(<=2, >=100 ~ 1000))
             
             withVFL(H: |-view1 - 2 - view2.that(<=2, >=100 ~ 1000)-|)
+            
+            withVFL(H: view1 - (<=200)-|)
         }
     }
     

@@ -7,7 +7,7 @@
 
 public struct CTVFLVariable: RawRepresentable,
     Hashable,
-    CTVFLPredicate,
+    CTVFLPredicateObject,
     CTVFLEdgeToEdgeLexicon,
     CTVFLSpacedLexicon
 {

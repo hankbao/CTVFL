@@ -7,15 +7,15 @@
 
 // MARK: - Predicate
 public protocol CTVFLPredicatable {
-    func that(_ predications: CTVFLPredicationProtocol...) -> CTVFLPredicatedVariable
+    func that(_ predicates: CTVFLPredicating...) -> CTVFLPredicatedVariable
 }
 
 extension View: CTVFLPredicatable {
     public func that(
-        _ predications: CTVFLPredicationProtocol...
+        _ predicates: CTVFLPredicating...
         ) -> CTVFLPredicatedVariable
     {
-        return .init(variable: .init(rawValue: self), predications: predications)
+        return .init(variable: .init(rawValue: self), predicates: predicates)
     }
 }
 
@@ -28,22 +28,22 @@ public class CTVFLPredicatedVariable: CTVFLEdgeToEdgeLexicon, CTVFLSpacedLexicon
     
     internal let _variable: CTVFLVariable
     
-    internal let _predications: [CTVFLPredicationProtocol]
+    internal let _predicates: [CTVFLPredicating]
     
-    internal init(variable: CTVFLVariable, predications: [CTVFLPredicationProtocol]) {
+    internal init(variable: CTVFLVariable, predicates: [CTVFLPredicating]) {
         _variable = variable
-        _predications = predications
+        _predicates = predicates
     }
     
     public func _makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext, parenthesizesVariables: Bool) -> String {
         let variable = _variable._makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: false)
-        let predications = _predications
+        let predicates = _predicates
             .map({$0._makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: false)})
             .joined(separator: ",")
         if parenthesizesVariables {
-            return "[\(variable)(\(predications))]"
+            return "[\(variable)(\(predicates))]"
         } else {
-            return "\(variable)(\(predications))"
+            return "\(variable)(\(predicates))"
         }
     }
 }

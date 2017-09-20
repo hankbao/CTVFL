@@ -67,11 +67,11 @@ public func - <L1, L2>(lhs: L1, rhs: L2) -> CTVFLSpacedSyntax<L1, L2> where L1._
     return .init(lhs: lhs, rhs: rhs)
 }
 
-public func - <L>(lhs: View, rhs: L) -> CTVFLSpacedSyntax<CTVFLVariable, L> where L._LastLexiconType == CTVFLLexiconConstantType {
+public func - <L>(lhs: View, rhs: L) -> CTVFLSpacedSyntax<CTVFLVariable, L> {
     return .init(lhs: .init(rawValue: lhs), rhs: rhs)
 }
 
-public func - <L>(lhs: L, rhs: View) -> CTVFLSpacedSyntax<L, CTVFLVariable> where L._FirstLexiconType == CTVFLLexiconConstantType {
+public func - <L>(lhs: L, rhs: View) -> CTVFLSpacedSyntax<L, CTVFLVariable> {
     return .init(lhs: lhs, rhs: .init(rawValue: rhs))
 }
 

@@ -31,18 +31,18 @@
 		9CB77AAF1F7158B10052448F /* CTVFLConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77AAE1F7158B10052448F /* CTVFLConstraint.swift */; };
 		9CB77AB01F7158B10052448F /* CTVFLConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77AAE1F7158B10052448F /* CTVFLConstraint.swift */; };
 		9CB77AB11F7158B10052448F /* CTVFLConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77AAE1F7158B10052448F /* CTVFLConstraint.swift */; };
-		9CB77ABB1F715ECC0052448F /* CTVFLPredication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ABA1F715ECC0052448F /* CTVFLPredication.swift */; };
-		9CB77ABC1F715ECC0052448F /* CTVFLPredication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ABA1F715ECC0052448F /* CTVFLPredication.swift */; };
-		9CB77ABD1F715ECC0052448F /* CTVFLPredication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ABA1F715ECC0052448F /* CTVFLPredication.swift */; };
+		9CB77ABB1F715ECC0052448F /* CTVFLPredicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ABA1F715ECC0052448F /* CTVFLPredicate.swift */; };
+		9CB77ABC1F715ECC0052448F /* CTVFLPredicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ABA1F715ECC0052448F /* CTVFLPredicate.swift */; };
+		9CB77ABD1F715ECC0052448F /* CTVFLPredicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ABA1F715ECC0052448F /* CTVFLPredicate.swift */; };
 		9CB77ABF1F715ED90052448F /* CTVFLLexicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ABE1F715ED90052448F /* CTVFLLexicon.swift */; };
 		9CB77AC01F715ED90052448F /* CTVFLLexicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ABE1F715ED90052448F /* CTVFLLexicon.swift */; };
 		9CB77AC11F715ED90052448F /* CTVFLLexicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ABE1F715ED90052448F /* CTVFLLexicon.swift */; };
 		9CB77AC71F7168410052448F /* CTVFLInlineContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77AC61F7168410052448F /* CTVFLInlineContext.swift */; };
 		9CB77AC81F7168410052448F /* CTVFLInlineContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77AC61F7168410052448F /* CTVFLInlineContext.swift */; };
 		9CB77AC91F7168420052448F /* CTVFLInlineContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77AC61F7168410052448F /* CTVFLInlineContext.swift */; };
-		9CB77ACF1F716B660052448F /* CTVFLPredicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ACE1F716B660052448F /* CTVFLPredicate.swift */; };
-		9CB77AD01F716B660052448F /* CTVFLPredicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ACE1F716B660052448F /* CTVFLPredicate.swift */; };
-		9CB77AD11F716B660052448F /* CTVFLPredicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ACE1F716B660052448F /* CTVFLPredicate.swift */; };
+		9CB77ACF1F716B660052448F /* CTVFLPredicateObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ACE1F716B660052448F /* CTVFLPredicateObject.swift */; };
+		9CB77AD01F716B660052448F /* CTVFLPredicateObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ACE1F716B660052448F /* CTVFLPredicateObject.swift */; };
+		9CB77AD11F716B660052448F /* CTVFLPredicateObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77ACE1F716B660052448F /* CTVFLPredicateObject.swift */; };
 		9CB77AD71F7179A20052448F /* CTVFLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77AD61F7179A20052448F /* CTVFLTests.swift */; };
 		9CB77AD81F7179A20052448F /* CTVFLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77AD61F7179A20052448F /* CTVFLTests.swift */; };
 		9CB77AD91F7179A20052448F /* CTVFLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB77AD61F7179A20052448F /* CTVFLTests.swift */; };
@@ -94,10 +94,10 @@
 		9CB77AA21F7155AE0052448F /* CTVFLPredicatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLPredicatable.swift; sourceTree = "<group>"; };
 		9CB77AAA1F7158790052448F /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		9CB77AAE1F7158B10052448F /* CTVFLConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLConstraint.swift; sourceTree = "<group>"; };
-		9CB77ABA1F715ECC0052448F /* CTVFLPredication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLPredication.swift; sourceTree = "<group>"; };
+		9CB77ABA1F715ECC0052448F /* CTVFLPredicate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLPredicate.swift; sourceTree = "<group>"; };
 		9CB77ABE1F715ED90052448F /* CTVFLLexicon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLLexicon.swift; sourceTree = "<group>"; };
 		9CB77AC61F7168410052448F /* CTVFLInlineContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLInlineContext.swift; sourceTree = "<group>"; };
-		9CB77ACE1F716B660052448F /* CTVFLPredicate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLPredicate.swift; sourceTree = "<group>"; };
+		9CB77ACE1F716B660052448F /* CTVFLPredicateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLPredicateObject.swift; sourceTree = "<group>"; };
 		9CB77AD61F7179A20052448F /* CTVFLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLTests.swift; sourceTree = "<group>"; };
 		9CB77ADA1F71F13C0052448F /* CTVFLVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLVariable.swift; sourceTree = "<group>"; };
 		9CEB1B7D1F720BF8001BC581 /* CTVFLVisualFormatConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTVFLVisualFormatConvertible.swift; sourceTree = "<group>"; };
@@ -193,8 +193,8 @@
 				9CB77AA21F7155AE0052448F /* CTVFLPredicatable.swift */,
 				9CB77ABE1F715ED90052448F /* CTVFLLexicon.swift */,
 				9C5D55B41F71FE9300592173 /* CTVFLLexiconType.swift */,
-				9CB77ABA1F715ECC0052448F /* CTVFLPredication.swift */,
-				9CB77ACE1F716B660052448F /* CTVFLPredicate.swift */,
+				9CB77ABA1F715ECC0052448F /* CTVFLPredicate.swift */,
+				9CB77ACE1F716B660052448F /* CTVFLPredicateObject.swift */,
 				9CB77AC61F7168410052448F /* CTVFLInlineContext.swift */,
 				9CB77A9A1F71556D0052448F /* CTVFLGlobalContext.swift */,
 				9CB77A9E1F7155970052448F /* CTVFLConstraintGroup.swift */,
@@ -461,8 +461,8 @@
 				9CB77AA31F7155AE0052448F /* CTVFLPredicatable.swift in Sources */,
 				9CB77ABF1F715ED90052448F /* CTVFLLexicon.swift in Sources */,
 				9CB77ADB1F71F13C0052448F /* CTVFLVariable.swift in Sources */,
-				9CB77ACF1F716B660052448F /* CTVFLPredicate.swift in Sources */,
-				9CB77ABB1F715ECC0052448F /* CTVFLPredication.swift in Sources */,
+				9CB77ACF1F716B660052448F /* CTVFLPredicateObject.swift in Sources */,
+				9CB77ABB1F715ECC0052448F /* CTVFLPredicate.swift in Sources */,
 				9CB77A9F1F7155970052448F /* CTVFLConstraintGroup.swift in Sources */,
 				9CB77AAF1F7158B10052448F /* CTVFLConstraint.swift in Sources */,
 			);
@@ -489,8 +489,8 @@
 				9CB77AA41F7155AE0052448F /* CTVFLPredicatable.swift in Sources */,
 				9CB77AC01F715ED90052448F /* CTVFLLexicon.swift in Sources */,
 				9CB77ADC1F71F13C0052448F /* CTVFLVariable.swift in Sources */,
-				9CB77AD01F716B660052448F /* CTVFLPredicate.swift in Sources */,
-				9CB77ABC1F715ECC0052448F /* CTVFLPredication.swift in Sources */,
+				9CB77AD01F716B660052448F /* CTVFLPredicateObject.swift in Sources */,
+				9CB77ABC1F715ECC0052448F /* CTVFLPredicate.swift in Sources */,
 				9CB77AA01F7155970052448F /* CTVFLConstraintGroup.swift in Sources */,
 				9CB77AB01F7158B10052448F /* CTVFLConstraint.swift in Sources */,
 			);
@@ -517,8 +517,8 @@
 				9CB77AA51F7155AE0052448F /* CTVFLPredicatable.swift in Sources */,
 				9CB77AC11F715ED90052448F /* CTVFLLexicon.swift in Sources */,
 				9CB77ADD1F71F13C0052448F /* CTVFLVariable.swift in Sources */,
-				9CB77AD11F716B660052448F /* CTVFLPredicate.swift in Sources */,
-				9CB77ABD1F715ECC0052448F /* CTVFLPredication.swift in Sources */,
+				9CB77AD11F716B660052448F /* CTVFLPredicateObject.swift in Sources */,
+				9CB77ABD1F715ECC0052448F /* CTVFLPredicate.swift in Sources */,
 				9CB77AA11F7155970052448F /* CTVFLConstraintGroup.swift in Sources */,
 				9CB77AB11F7158B10052448F /* CTVFLConstraint.swift in Sources */,
 			);
