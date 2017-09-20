@@ -7,37 +7,26 @@
 
 import CoreGraphics
 
-public protocol CTVFLPredicating: CTVFLVisualFormatConvertible { }
+public protocol CTVFLPredicating {
+    func _toCTVFLPredicate() -> CTVFLPredicate
+}
 
-public protocol CTVFLEqualLiteralPredicating: CTVFLPredicating,
-CTVFLPredicateObject { }
-
-extension Int: CTVFLEqualLiteralPredicating {}
-
-extension Float: CTVFLEqualLiteralPredicating {}
-
-extension Double: CTVFLEqualLiteralPredicating {}
-
-extension CGFloat: CTVFLEqualLiteralPredicating {}
-
-public struct CTVFLPredicate<P: CTVFLPredicateObject>: CTVFLPredicating, CTVFLSpacedLexicon {
+public struct CTVFLPredicate: CTVFLPredicating, CTVFLSpacedLexicon {
     public typealias _FirstLexiconType = CTVFLLexiconConstantType
     
     public typealias _LastLexiconType = CTVFLLexiconConstantType
     
     public typealias _SyntaxState = CTVFLSyntaxNotTerminated
     
-    internal typealias _Predicate = P
-    
     internal enum _Relation: CustomStringConvertible {
         case equal
-        case largerThanOrEqual
+        case greaterThanOrEqual
         case lessThanOrEqual
         
         var description: String {
             switch self {
             case .equal:                return "=="
-            case .largerThanOrEqual:    return ">="
+            case .greaterThanOrEqual:    return ">="
             case .lessThanOrEqual:      return "<="
 
             }
@@ -48,21 +37,67 @@ public struct CTVFLPredicate<P: CTVFLPredicateObject>: CTVFLPredicating, CTVFLSp
     
     internal let _relation: _Relation
     
-    internal let _predicate: _Predicate
+    internal let _predicate: CTVFLVariantPredicateObject
     
-    internal init(predicate: _Predicate, relation: _Relation, priority: Priority = .required) {
+    internal init(
+        predicate: CTVFLVariantPredicateObject,
+        relation: _Relation,
+        priority: Priority
+        )
+    {
         _predicate = predicate
         _relation = relation
         _priority = priority
     }
     
-    internal func _byUpdatingPriority(_ priority: Priority) -> CTVFLPredicate {
-        return .init(predicate: _predicate, relation: _relation, priority: priority)
+    internal init(
+        variable: CTVFLVariable,
+        relation: _Relation,
+        priority: Priority = .required
+        )
+    {
+        self.init(
+            predicate: .variable(variable),
+            relation: relation,
+            priority: priority
+        )
     }
     
-    public func _makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext, parenthesizesVariables: Bool) -> String {
+    internal init(
+        constant: CTVFLConstant,
+        relation: _Relation,
+        priority: Priority = .required
+        )
+    {
+        self.init(
+            predicate: .constant(constant),
+            relation: relation,
+            priority: priority
+        )
+    }
+    
+    internal func _byUpdatingPriority(_ priority: Priority)
+        -> CTVFLPredicate
+    {
+        return .init(
+            predicate: _predicate,
+            relation: _relation,
+            priority: priority
+        )
+    }
+    
+    public func _toCTVFLPredicate() -> CTVFLPredicate {
+        return self
+    }
+    
+    public func makePrimitiveVisualFormat(
+        with inlineContext: CTVFLInlineContext
+        ) -> String
+    {
         let relation = _relation.description
-        let predicate = _predicate._makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: false)
+        let predicate = _predicate.makePrimitiveVisualFormat(
+            with: inlineContext
+        )
         if _priority != .required {
             return "\(relation)\(predicate)@\(_priority.rawValue)"
         } else {
@@ -71,56 +106,49 @@ public struct CTVFLPredicate<P: CTVFLPredicateObject>: CTVFLPredicating, CTVFLSp
     }
 }
 
-public prefix func <= <C: CTVFLPredicateObject>(predicate: C) -> CTVFLPredicate<C> {
-    return .init(predicate: predicate, relation: .lessThanOrEqual)
+// MARK: - Compositing Predicate
+public prefix func <= <P: CTVFLVariableConvertible>(predicate: P) -> CTVFLPredicate {
+    return .init(variable: P._makeVariable(predicate), relation: .greaterThanOrEqual)
 }
 
-public prefix func == <C: CTVFLPredicateObject>(predicate: C) -> CTVFLPredicate<C> {
-    return .init(predicate: predicate, relation: .equal)
+public prefix func <= <P: CTVFLConstantConvertible>(predicate: P) -> CTVFLPredicate {
+    return .init(constant: P._makeConstant(predicate), relation: .lessThanOrEqual)
 }
 
-public prefix func >= <C: CTVFLPredicateObject>(predicate: C) -> CTVFLPredicate<C> {
-    return .init(predicate: predicate, relation: .largerThanOrEqual)
+public prefix func >= <P: CTVFLVariableConvertible>(predicate: P) -> CTVFLPredicate {
+    return .init(variable: P._makeVariable(predicate), relation: .greaterThanOrEqual)
 }
 
-// MARK: Updating Predication's Priority
-public func ~ <P>(lhs: CTVFLPredicate<P>, rhs: Priority) -> CTVFLPredicate<P> {
+public prefix func >= <P: CTVFLConstantConvertible>(predicate: P) -> CTVFLPredicate {
+    return .init(constant: P._makeConstant(predicate), relation: .greaterThanOrEqual)
+}
+
+public prefix func == <P: CTVFLVariableConvertible>(predicate: P) -> CTVFLPredicate {
+    return .init(variable: P._makeVariable(predicate), relation: .equal)
+}
+
+public prefix func == <P: CTVFLConstantConvertible>(predicate: P) -> CTVFLPredicate {
+    return .init(constant: P._makeConstant(predicate), relation: .equal)
+}
+
+// MARK: - Updating Predication's Priority
+public func ~ (lhs: CTVFLPredicate, rhs: Priority) -> CTVFLPredicate {
     return lhs._byUpdatingPriority(rhs)
 }
 
-public func ~ <P>(lhs: CTVFLPredicate<P>, rhs: Int) -> CTVFLPredicate<P> {
+public func ~ (lhs: CTVFLPredicate, rhs: Int) -> CTVFLPredicate {
     return lhs._byUpdatingPriority(Priority(Float(rhs)))
 }
 
-public func ~ <P>(lhs: CTVFLPredicate<P>, rhs: Float) -> CTVFLPredicate<P> {
+public func ~ (lhs: CTVFLPredicate, rhs: Float) -> CTVFLPredicate {
     return lhs._byUpdatingPriority(Priority(rhs))
 }
 
-public func ~ <P>(lhs: CTVFLPredicate<P>, rhs: Double) -> CTVFLPredicate<P> {
+public func ~ (lhs: CTVFLPredicate, rhs: Double) -> CTVFLPredicate {
     return lhs._byUpdatingPriority(Priority(Float(rhs)))
 }
 
-public func ~ <P>(lhs: CTVFLPredicate<P>, rhs: CGFloat) -> CTVFLPredicate<P> {
+public func ~ (lhs: CTVFLPredicate, rhs: CGFloat) -> CTVFLPredicate {
     return lhs._byUpdatingPriority(Priority(Float(rhs)))
 }
 
-// MARK: Updating Equal Literal Predicate's Priority
-public func ~ <P: CTVFLEqualLiteralPredicating>(lhs: P, rhs: Priority) -> CTVFLPredicate<P> {
-    return .init(predicate: lhs, relation: .equal, priority: rhs)
-}
-
-public func ~ <P: CTVFLEqualLiteralPredicating>(lhs: P, rhs: Int) -> CTVFLPredicate<P> {
-    return lhs ~ Priority(Float(rhs))
-}
-
-public func ~ <P: CTVFLEqualLiteralPredicating>(lhs: P, rhs: Float) -> CTVFLPredicate<P> {
-    return lhs ~ Priority(rhs)
-}
-
-public func ~ <P: CTVFLEqualLiteralPredicating>(lhs: P, rhs: Double) -> CTVFLPredicate<P> {
-    return lhs ~ Priority(Float(rhs))
-}
-
-public func ~ <P: CTVFLEqualLiteralPredicating>(lhs: P, rhs: CGFloat) -> CTVFLPredicate<P> {
-    return lhs ~ Priority(Float(rhs))
-}

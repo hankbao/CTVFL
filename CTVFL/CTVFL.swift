@@ -55,20 +55,22 @@ public func withVFL<T: CTVFLLexicon>(
 {
     let inlineContext = CTVFLInlineContext._push()
     let lexicon = verticalDescription()
-    let visualFormat = _makeVisualFormat(
-        with: lexicon,
-        inlineContext: inlineContext,
-        orientation: .vertical
+    let visualFormat = lexicon._makeVisualFormat(
+        with: inlineContext,
+        orientation: .horizontal
     )
     CTVFLInlineContext._pop()
     let constraints = Constraint.constraints(
         withVisualFormat: visualFormat,
         options: options,
         metrics: nil,
-        views: inlineContext._variables.mapValues({$0._view})
+        views: inlineContext._views
     )
     if let globalContext = CTVFLGlobalContext.shared {
-        globalContext.registerConstraints(constraints, with: inlineContext._variables.values.map({$0._view}))
+        globalContext.registerConstraints(
+            constraints,
+            with: inlineContext._views.values
+        )
     }
     return constraints
 }
@@ -81,9 +83,8 @@ public func withVFL<T: CTVFLLexicon>(
 {
     let inlineContext = CTVFLInlineContext._push()
     let lexicon = horizontalDescription()
-    let visualFormat = _makeVisualFormat(
-        with: lexicon,
-        inlineContext: inlineContext,
+    let visualFormat = lexicon._makeVisualFormat(
+        with: inlineContext,
         orientation: .horizontal
     )
     CTVFLInlineContext._pop()
@@ -91,26 +92,15 @@ public func withVFL<T: CTVFLLexicon>(
         withVisualFormat: visualFormat,
         options: options,
         metrics: nil,
-        views: inlineContext._variables.mapValues({$0._view})
+        views: inlineContext._views
     )
     if let globalContext = CTVFLGlobalContext.shared {
-        globalContext.registerConstraints(constraints, with: inlineContext._variables.values.map({$0._view}))
+        globalContext.registerConstraints(
+            constraints,
+            with: inlineContext._views.values
+        )
     }
     return constraints
-}
-
-// MARK: - Controlling Tralsation from Autoresizing Mask into Constraints
-private var _ignoresTranslatingAutoresizingMaskIntoConstraints_ = false
-
-public var ignoresTranslatingAutoresizingMaskIntoConstraints: Bool {
-    get {
-        _assert(Thread.isMainThread)
-        return _ignoresTranslatingAutoresizingMaskIntoConstraints_
-    }
-    set {
-        _assert(Thread.isMainThread)
-        _ignoresTranslatingAutoresizingMaskIntoConstraints_ = newValue
-    }
 }
 
 // MARK: Oeprators

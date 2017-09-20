@@ -12,7 +12,7 @@ internal let alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 internal let alphanumeric = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
 public class CTVFLInlineContext {
-    internal var _variables: [String: CTVFLVariable] {
+    internal var _views: [String: View] {
         var variables = [String: CTVFLVariable]()
         
         for (variable, name) in _nameForVariable {
@@ -25,7 +25,7 @@ public class CTVFLInlineContext {
             }
         }
         
-        return variables
+        return variables.mapValues({$0._view})
     }
     
     internal func _ensureName(for variable: CTVFLVariable) -> String {
@@ -88,15 +88,11 @@ public class CTVFLInlineContext {
     internal weak var _globalContext: CTVFLGlobalContext? = .shared
     
     internal init() {
-        _assert(Thread.isMainThread)
     }
-    
-    deinit { _assert(Thread.isMainThread) }
     
     // MARK: Managing Context Stack
     @discardableResult
     internal static func _push() -> CTVFLInlineContext {
-        _assert(Thread.isMainThread)
         let pushed = CTVFLInlineContext()
         _contexts.append(pushed)
         return pushed
@@ -104,7 +100,6 @@ public class CTVFLInlineContext {
     
     @discardableResult
     internal static func _pop() -> CTVFLInlineContext {
-        _assert(Thread.isMainThread)
         return _contexts.removeLast()
     }
     

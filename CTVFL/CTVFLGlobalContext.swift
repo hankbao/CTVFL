@@ -5,11 +5,13 @@
 //  Created by WeZZard on 9/19/17.
 //
 
-import Foundation
-
 internal class CTVFLGlobalContext {
     // MARK: Stores Variable Names
-    internal func setOverridingName(_ name: String, for variable: CTVFLVariable) {
+    internal func setOverridingName(
+        _ name: String,
+        for variable: CTVFLVariable
+        )
+    {
         overridingNameForVariable[variable] = name
     }
     
@@ -40,7 +42,6 @@ internal class CTVFLGlobalContext {
     
     @discardableResult
     internal static func push() -> CTVFLGlobalContext {
-        _assert(Thread.isMainThread)
         let pushed = CTVFLGlobalContext()
         contexts.append(pushed)
         return pushed
@@ -48,7 +49,6 @@ internal class CTVFLGlobalContext {
     
     @discardableResult
     internal static func pop() -> CTVFLGlobalContext {
-        _assert(Thread.isMainThread)
         return contexts.removeLast()
     }
     
@@ -59,14 +59,7 @@ internal class CTVFLGlobalContext {
     internal static private(set) var contexts: [CTVFLGlobalContext] = []
     
     internal init() {
-        _assert(Thread.isMainThread)
         cosntraints_ = []
-        ignoresTranslatingAutoresizingMaskIntoConstraints = false
-    }
-    
-    deinit {
-        _assert(Thread.isMainThread)
-        ignoresTranslatingAutoresizingMaskIntoConstraints = false
     }
     
     internal static func registerConstraints<C, V>(
@@ -76,7 +69,6 @@ internal class CTVFLGlobalContext {
         C: Sequence, C.Element == Constraint,
         V: Sequence, V.Element == View
     {
-        _assert(Thread.isMainThread)
         let shouldPop = shared == nil
         let context = shared ?? push()
         
@@ -94,13 +86,9 @@ internal class CTVFLGlobalContext {
         C: Sequence, C.Element == Constraint,
         V: Sequence, V.Element == View
     {
-        _assert(Thread.isMainThread)
-        
-        if !ignoresTranslatingAutoresizingMaskIntoConstraints {
-            for eachView in views {
-                if eachView.translatesAutoresizingMaskIntoConstraints {
-                    eachView.translatesAutoresizingMaskIntoConstraints = false
-                }
+        for eachView in views {
+            if eachView.translatesAutoresizingMaskIntoConstraints {
+                eachView.translatesAutoresizingMaskIntoConstraints = false
             }
         }
         
@@ -110,7 +98,7 @@ internal class CTVFLGlobalContext {
             }
             cosntraints_.append(contentsOf: installables)
         } else {
-            NSLog(
+            debugPrint(
                 """
                 No common super view found for constraints:
                 \(Array(constraints)). Candidates: \(views).

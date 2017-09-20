@@ -19,9 +19,11 @@ internal class CTVFLConstraint {
         view.removeConstraint(constraint)
     }
     
+    @available(macOS, introduced: 10.10)
+    @available(macOSApplicationExtension, introduced: 10.10)
     internal var isActive: Bool {
         get { return constraint.isActive }
-        set { constraint.isActive = true }
+        set { constraint.isActive = newValue }
     }
     
     internal init(view: View, constraint: Constraint) {

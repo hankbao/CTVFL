@@ -26,11 +26,11 @@ class CTVFLTests: XCTestCase {
         rootView.addSubview(view2)
         
         constrain {
-            withVFL(H: view1.that(<=200))
+            withVFL(H: view1.where(<=200))
             
-            withVFL(H: view1.that(200))
+            withVFL(H: view1.where(200))
             
-            withVFL(H: view1.that(200 ~ 20))
+            withVFL(H: view1.where(200 ~ 20))
             
             withVFL(H: |view1|)
             
@@ -40,11 +40,13 @@ class CTVFLTests: XCTestCase {
             
             withVFL(H: view1 | view2)
             
+            withVFL(H: view1.where(==view2))
+            
             withVFL(H: view1 - view2)
             
-            withVFL(H: view1 - 2 - view2.that(<=2, >=100 ~ 1000))
+            withVFL(H: view1 - 2 - view2.where(<=2, >=100 ~ 1000))
             
-            withVFL(H: |-view1 - 2 - view2.that(<=2, >=100 ~ 1000)-|)
+            withVFL(H: |-view1 - 2 - view2.where(<=2, >=100 ~ 1000)-|)
             
             withVFL(H: view1 - (<=200)-|)
         }

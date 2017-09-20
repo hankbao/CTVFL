@@ -7,94 +7,6 @@
 
 import CoreGraphics
 
-public prefix func | <L>(operand: L) -> CTVFLLeadingSyntax<L> {
-    return .init(lexicon: operand)
-}
-
-public prefix func | (operand: View) -> CTVFLLeadingSyntax<CTVFLVariable> {
-    return .init(lexicon: .init(rawValue: operand))
-}
-
-public prefix func | <L>(operand: CTVFLTrailingSyntax<L>) -> CTVFLBracketedVariable<L> {
-    return .init(trailingSyntax: operand, hasLeadingSpacing: false)
-}
-
-public prefix func | <L>(operand: CTVFLSpacedTrailingSyntax<L>) -> CTVFLBracketedSpacedVariable<L> {
-    return .init(trailingSyntax: operand, hasLeadingSpacing: false)
-}
-
-public postfix func | <L>(operand: L) -> CTVFLTrailingSyntax<L> {
-    return .init(lexicon: operand)
-}
-
-public postfix func | (operand: View) -> CTVFLTrailingSyntax<CTVFLVariable> {
-    return .init(lexicon: .init(rawValue: operand))
-}
-
-public prefix func |- <L>(operand: L) -> CTVFLSpacedLeadingSyntax<L> {
-    return .init(lexicon: operand)
-}
-
-public prefix func |- (operand: View) -> CTVFLSpacedLeadingSyntax<CTVFLVariable> {
-    return .init(lexicon: .init(rawValue: operand))
-}
-
-public prefix func |- <L>(operand: CTVFLTrailingSyntax<L>) -> CTVFLBracketedVariable<L> {
-    return .init(trailingSyntax: operand, hasLeadingSpacing: true)
-}
-
-public prefix func |- <L>(operand: CTVFLSpacedTrailingSyntax<L>) -> CTVFLBracketedSpacedVariable<L> {
-    return .init(trailingSyntax: operand, hasLeadingSpacing: true)
-}
-
-public postfix func -| <L>(operand: L) -> CTVFLSpacedTrailingSyntax<L> {
-    return .init(lexicon: operand)
-}
-
-public postfix func -| (operand: View) -> CTVFLSpacedTrailingSyntax<CTVFLVariable> {
-    return .init(lexicon: .init(rawValue: operand))
-}
-
-public func - <L1, L2>(lhs: L1, rhs: L2) -> CTVFLSpacedSyntax<L1, L2> where L1._LastLexiconType == CTVFLLexiconConstantType, L2._FirstLexiconType == CTVFLLexiconVariableType {
-    return .init(lhs: lhs, rhs: rhs)
-}
-
-public func - <L1, L2>(lhs: L1, rhs: L2) -> CTVFLSpacedSyntax<L1, L2> where L1._LastLexiconType == CTVFLLexiconVariableType, L2._FirstLexiconType == CTVFLLexiconConstantType {
-    return .init(lhs: lhs, rhs: rhs)
-}
-
-public func - <L1, L2>(lhs: L1, rhs: L2) -> CTVFLSpacedSyntax<L1, L2> where L1._LastLexiconType == CTVFLLexiconVariableType, L2._FirstLexiconType == CTVFLLexiconVariableType {
-    return .init(lhs: lhs, rhs: rhs)
-}
-
-public func - <L>(lhs: View, rhs: L) -> CTVFLSpacedSyntax<CTVFLVariable, L> {
-    return .init(lhs: .init(rawValue: lhs), rhs: rhs)
-}
-
-public func - <L>(lhs: L, rhs: View) -> CTVFLSpacedSyntax<L, CTVFLVariable> {
-    return .init(lhs: lhs, rhs: .init(rawValue: rhs))
-}
-
-public func - (lhs: View, rhs: View) -> CTVFLSpacedSyntax<CTVFLVariable, CTVFLVariable> {
-    return .init(lhs: .init(rawValue: lhs), rhs: .init(rawValue: rhs))
-}
-
-public func | <L1, L2>(lhs: L1, rhs: L2) -> CTVFLEdgeToEdgeSyntax<L1, L2> {
-    return .init(lhs: lhs, rhs: rhs)
-}
-
-public func | <L>(lhs: View, rhs: L) -> CTVFLEdgeToEdgeSyntax<CTVFLVariable, L> {
-    return .init(lhs: .init(rawValue: lhs), rhs: rhs)
-}
-
-public func | <L>(lhs: L, rhs: View) -> CTVFLEdgeToEdgeSyntax<L, CTVFLVariable> {
-    return .init(lhs: lhs, rhs: .init(rawValue: rhs))
-}
-
-public func | (lhs: View, rhs: View) -> CTVFLEdgeToEdgeSyntax<CTVFLVariable, CTVFLVariable> {
-    return .init(lhs: .init(rawValue: lhs), rhs: .init(rawValue: rhs))
-}
-
 // MARK: - Abstract
 // MARK: CTVFLLexiconType
 public protocol CTVFLLexiconType {}
@@ -111,44 +23,37 @@ public struct CTVFLSyntaxNotTerminated: CTVFLSyntaxState {}
 public struct CTVFLSyntaxTerminated: CTVFLSyntaxState {}
 
 // MARK: CTVFLLexicon
-public protocol CTVFLLexicon: CTVFLVisualFormatConvertible {
+public protocol CTVFLLexicon {
     associatedtype _FirstLexiconType: CTVFLLexiconType
     
     associatedtype _LastLexiconType: CTVFLLexiconType
     
     associatedtype _SyntaxState: CTVFLSyntaxState
+    
+    func makePrimitiveVisualFormat(
+        with inlineContext: CTVFLInlineContext
+        ) -> String
 }
 
-extension Int: CTVFLLexicon {
-    public typealias _FirstLexiconType = CTVFLLexiconConstantType
-    
-    public typealias _LastLexiconType = CTVFLLexiconConstantType
-    
-    public typealias _SyntaxState = CTVFLSyntaxNotTerminated
+internal enum VisualFormatOrientation {
+    case vertical
+    case horizontal
 }
 
-extension Float: CTVFLLexicon {
-    public typealias _FirstLexiconType = CTVFLLexiconConstantType
-    
-    public typealias _LastLexiconType = CTVFLLexiconConstantType
-    
-    public typealias _SyntaxState = CTVFLSyntaxNotTerminated
-}
-
-extension Double: CTVFLLexicon {
-    public typealias _FirstLexiconType = CTVFLLexiconConstantType
-    
-    public typealias _LastLexiconType = CTVFLLexiconConstantType
-    
-    public typealias _SyntaxState = CTVFLSyntaxNotTerminated
-}
-
-extension CGFloat: CTVFLLexicon {
-    public typealias _FirstLexiconType = CTVFLLexiconConstantType
-    
-    public typealias _LastLexiconType = CTVFLLexiconConstantType
-    
-    public typealias _SyntaxState = CTVFLSyntaxNotTerminated
+extension CTVFLLexicon {
+    internal func _makeVisualFormat(
+        with inlineContext: CTVFLInlineContext,
+        orientation: VisualFormatOrientation
+        ) -> String
+    {
+        let primitiveVisualFormat = makePrimitiveVisualFormat(with: inlineContext)
+        switch orientation {
+        case .horizontal:
+            return "H:\(primitiveVisualFormat)"
+        case .vertical:
+            return "V:\(primitiveVisualFormat)"
+        }
+    }
 }
 
 // MARK: CTVFLEdgeToEdgeLexicon
@@ -157,15 +62,54 @@ public protocol CTVFLEdgeToEdgeLexicon: CTVFLLexicon {}
 // MARK: CTVFLSpacedLexicon
 public protocol CTVFLSpacedLexicon: CTVFLLexicon {}
 
-extension Int: CTVFLSpacedLexicon {}
-
-extension Float: CTVFLSpacedLexicon {}
-
-extension Double: CTVFLSpacedLexicon {}
-
-extension CGFloat: CTVFLSpacedLexicon {}
-
 // MARK: - Concrete
+// MARK: Lexicons
+public struct CTVFLConstantLexicon: CTVFLSpacedLexicon {
+    public typealias _FirstLexiconType = CTVFLLexiconConstantType
+    
+    public typealias _LastLexiconType = CTVFLLexiconConstantType
+    
+    public typealias _SyntaxState = CTVFLSyntaxNotTerminated
+    
+    internal let _constant: CTVFLConstant
+    
+    internal init(constant: CTVFLConstant) {
+        _constant = constant
+    }
+    
+    public func makePrimitiveVisualFormat(
+        with inlineContext: CTVFLInlineContext
+        ) -> String
+    {
+        return _constant.description
+    }
+}
+
+public struct CTVFLVariableLexicon: CTVFLSpacedLexicon,
+    CTVFLEdgeToEdgeLexicon
+{
+    internal let _variable: CTVFLVariable
+    
+    internal init(variable: CTVFLVariable) {
+        _variable = variable
+    }
+    
+    public typealias _FirstLexiconType = CTVFLLexiconVariableType
+    
+    public typealias _LastLexiconType = CTVFLLexiconVariableType
+    
+    public typealias _SyntaxState = CTVFLSyntaxNotTerminated
+    
+    public func makePrimitiveVisualFormat(
+        with inlineContext: CTVFLInlineContext
+        ) -> String
+    {
+        let name = inlineContext._ensureName(for: _variable)
+        return "[\(name)]"
+    }
+}
+
+// MARK: Syntaxes
 public struct CTVFLLeadingSyntax<L: CTVFLEdgeToEdgeLexicon>:
     CTVFLLexicon where
     L._FirstLexiconType == CTVFLLexiconVariableType,
@@ -185,8 +129,8 @@ public struct CTVFLLeadingSyntax<L: CTVFLEdgeToEdgeLexicon>:
         _lexicon = lexicon
     }
     
-    public func _makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext, parenthesizesVariables: Bool) -> String {
-        let lexicon = _lexicon._makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: parenthesizesVariables)
+    public func makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext) -> String {
+        let lexicon = _lexicon.makePrimitiveVisualFormat(with: inlineContext)
         return "|\(lexicon)"
     }
 }
@@ -210,8 +154,8 @@ public struct CTVFLTrailingSyntax<L: CTVFLEdgeToEdgeLexicon>:
         _lexicon = lexicon
     }
     
-    public func _makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext, parenthesizesVariables: Bool) -> String {
-        let lexicon = _lexicon._makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: parenthesizesVariables)
+    public func makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext) -> String {
+        let lexicon = _lexicon.makePrimitiveVisualFormat(with: inlineContext)
         return "\(lexicon)|"
     }
 }
@@ -233,8 +177,8 @@ public struct CTVFLSpacedLeadingSyntax<L: CTVFLSpacedLexicon>:
         _lexicon = lexicon
     }
     
-    public func _makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext, parenthesizesVariables: Bool) -> String {
-        let lexicon = _lexicon._makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: parenthesizesVariables)
+    public func makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext) -> String {
+        let lexicon = _lexicon.makePrimitiveVisualFormat(with: inlineContext)
         return "|-\(lexicon)"
     }
 }
@@ -256,8 +200,8 @@ public struct CTVFLSpacedTrailingSyntax<L: CTVFLSpacedLexicon>:
         _lexicon = lexicon
     }
     
-    public func _makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext, parenthesizesVariables: Bool) -> String {
-        let lexicon = _lexicon._makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: parenthesizesVariables)
+    public func makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext) -> String {
+        let lexicon = _lexicon.makePrimitiveVisualFormat(with: inlineContext)
         return "\(lexicon)-|"
     }
 }
@@ -284,9 +228,9 @@ public struct CTVFLSpacedSyntax<L1: CTVFLLexicon, L2: CTVFLLexicon>:
         _rhs = rhs
     }
     
-    public func _makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext, parenthesizesVariables: Bool) -> String {
-        let lhs = _lhs._makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: parenthesizesVariables)
-        let rhs = _rhs._makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: parenthesizesVariables)
+    public func makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext) -> String {
+        let lhs = _lhs.makePrimitiveVisualFormat(with: inlineContext)
+        let rhs = _rhs.makePrimitiveVisualFormat(with: inlineContext)
         return "\(lhs)-\(rhs)"
     }
 }
@@ -316,14 +260,14 @@ public struct CTVFLEdgeToEdgeSyntax<L1: CTVFLLexicon, L2: CTVFLLexicon>:
         _rhs = rhs
     }
     
-    public func _makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext, parenthesizesVariables: Bool) -> String {
-        let lhs = _lhs._makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: parenthesizesVariables)
-        let rhs = _rhs._makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: parenthesizesVariables)
+    public func makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext) -> String {
+        let lhs = _lhs.makePrimitiveVisualFormat(with: inlineContext)
+        let rhs = _rhs.makePrimitiveVisualFormat(with: inlineContext)
         return "\(lhs)\(rhs)"
     }
 }
 
-public struct CTVFLBracketedVariable<L: CTVFLEdgeToEdgeLexicon>:
+public struct CTVFLBracketedVariableSyntax<L: CTVFLEdgeToEdgeLexicon>:
     CTVFLLexicon where
     L._FirstLexiconType == CTVFLLexiconVariableType,
     L._LastLexiconType == CTVFLLexiconVariableType
@@ -343,14 +287,14 @@ public struct CTVFLBracketedVariable<L: CTVFLEdgeToEdgeLexicon>:
         _hasLeadingSpacing = hasLeadingSpacing
     }
     
-    public func _makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext, parenthesizesVariables: Bool) -> String {
+    public func makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext) -> String {
         let spacing = _hasLeadingSpacing ? "-" : ""
-        let trailing = _trailingSyntax._makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: parenthesizesVariables)
+        let trailing = _trailingSyntax.makePrimitiveVisualFormat(with: inlineContext)
         return "|\(spacing)\(trailing)"
     }
 }
 
-public struct CTVFLBracketedSpacedVariable<L: CTVFLSpacedLexicon>:
+public struct CTVFLBracketedSpacedVariableSyntax<L: CTVFLSpacedLexicon>:
     CTVFLLexicon where
     L._FirstLexiconType == CTVFLLexiconVariableType,
     L._LastLexiconType == CTVFLLexiconVariableType
@@ -370,9 +314,128 @@ public struct CTVFLBracketedSpacedVariable<L: CTVFLSpacedLexicon>:
         _hasLeadingSpacing = hasLeadingSpacing
     }
     
-    public func _makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext, parenthesizesVariables: Bool) -> String {
+    public func makePrimitiveVisualFormat(with inlineContext: CTVFLInlineContext) -> String {
         let spacing = _hasLeadingSpacing ? "-" : ""
-        let trailing = _trailingSyntax._makePrimitiveVisualFormat(with: inlineContext, parenthesizesVariables: parenthesizesVariables)
+        let trailing = _trailingSyntax.makePrimitiveVisualFormat(with: inlineContext)
         return "|\(spacing)\(trailing)"
     }
+}
+
+// MARK: - Compositing Syntax
+// MARK: Leading Edge
+public prefix func | <L>(operand: L) -> CTVFLLeadingSyntax<L> {
+    return .init(lexicon: operand)
+}
+
+public prefix func | <L: CTVFLVariableConvertible>(operand: L) -> CTVFLLeadingSyntax<CTVFLVariableLexicon> {
+    return .init(lexicon: .init(variable: L._makeVariable(operand)))
+}
+
+public prefix func | <L>(operand: CTVFLTrailingSyntax<L>) -> CTVFLBracketedVariableSyntax<L> {
+    return .init(trailingSyntax: operand, hasLeadingSpacing: false)
+}
+
+public prefix func | <L>(operand: CTVFLSpacedTrailingSyntax<L>) -> CTVFLBracketedSpacedVariableSyntax<L> {
+    return .init(trailingSyntax: operand, hasLeadingSpacing: false)
+}
+
+// MARK: Trailing Edge
+public postfix func | <L>(operand: L) -> CTVFLTrailingSyntax<L> {
+    return .init(lexicon: operand)
+}
+
+public postfix func | <L: CTVFLVariableConvertible>(operand: L) -> CTVFLTrailingSyntax<CTVFLVariableLexicon> {
+    return .init(lexicon: .init(variable: L._makeVariable(operand)))
+}
+
+// MARK: Leading Spaced Edge
+public prefix func |- <L>(operand: L) -> CTVFLSpacedLeadingSyntax<L> {
+    return .init(lexicon: operand)
+}
+
+public prefix func |- <L: CTVFLConstantConvertible>(operand: L) -> CTVFLSpacedLeadingSyntax<CTVFLConstantLexicon> {
+    return .init(lexicon: .init(constant: L._makeConstant(operand)))
+}
+
+public prefix func |- <L: CTVFLVariableConvertible>(operand: L) -> CTVFLSpacedLeadingSyntax<CTVFLVariableLexicon> {
+    return .init(lexicon: .init(variable: L._makeVariable(operand)))
+}
+
+public prefix func |- <L>(operand: CTVFLTrailingSyntax<L>) -> CTVFLBracketedVariableSyntax<L> {
+    return .init(trailingSyntax: operand, hasLeadingSpacing: true)
+}
+
+public prefix func |- <L>(operand: CTVFLSpacedTrailingSyntax<L>) -> CTVFLBracketedSpacedVariableSyntax<L> {
+    return .init(trailingSyntax: operand, hasLeadingSpacing: true)
+}
+
+// MARK: Trailing Spaced Edge
+public postfix func -| <L>(operand: L) -> CTVFLSpacedTrailingSyntax<L> {
+    return .init(lexicon: operand)
+}
+
+public postfix func -| <L: CTVFLConstantConvertible>(operand: L) -> CTVFLSpacedTrailingSyntax<CTVFLConstantLexicon> {
+    return .init(lexicon: .init(constant: L._makeConstant(operand)))
+}
+
+public postfix func -| <L: CTVFLVariableConvertible>(operand: L) -> CTVFLSpacedTrailingSyntax<CTVFLVariableLexicon> {
+    return .init(lexicon: .init(variable: L._makeVariable(operand)))
+}
+
+// MARK: Spaced Connection
+public func - <L1, L2>(lhs: L1, rhs: L2) -> CTVFLSpacedSyntax<L1, L2> where L1._LastLexiconType == CTVFLLexiconConstantType, L2._FirstLexiconType == CTVFLLexiconVariableType {
+    return .init(lhs: lhs, rhs: rhs)
+}
+
+public func - <L1, L2>(lhs: L1, rhs: L2) -> CTVFLSpacedSyntax<L1, L2> where L1._LastLexiconType == CTVFLLexiconVariableType, L2._FirstLexiconType == CTVFLLexiconConstantType {
+    return .init(lhs: lhs, rhs: rhs)
+}
+
+public func - <L1, L2>(lhs: L1, rhs: L2) -> CTVFLSpacedSyntax<L1, L2> where L1._LastLexiconType == CTVFLLexiconVariableType, L2._FirstLexiconType == CTVFLLexiconVariableType {
+    return .init(lhs: lhs, rhs: rhs)
+}
+
+public func - <L1: CTVFLConstantConvertible, L2>(lhs: L1, rhs: L2) -> CTVFLSpacedSyntax<CTVFLConstantLexicon, L2> where L2._FirstLexiconType == CTVFLLexiconVariableType {
+    return .init(lhs: .init(constant: L1._makeConstant(lhs)), rhs: rhs)
+}
+
+public func - <L1: CTVFLVariableConvertible, L2>(lhs: L1, rhs: L2) -> CTVFLSpacedSyntax<CTVFLVariableLexicon, L2> where L2._FirstLexiconType == CTVFLLexiconConstantType {
+    return .init(lhs: .init(variable: L1._makeVariable(lhs)), rhs: rhs)
+}
+
+public func - <L1, L2: CTVFLConstantConvertible>(lhs: L1, rhs: L2) -> CTVFLSpacedSyntax<L1, CTVFLConstantLexicon> where L1._LastLexiconType == CTVFLLexiconVariableType {
+    return .init(lhs: lhs, rhs: .init(constant: L2._makeConstant(rhs)))
+}
+
+public func - <L1, L2: CTVFLVariableConvertible>(lhs: L1, rhs: L2) -> CTVFLSpacedSyntax<L1, CTVFLVariableLexicon> where L1._LastLexiconType == CTVFLLexiconConstantType {
+    return .init(lhs: lhs, rhs: .init(variable: L2._makeVariable(rhs)))
+}
+
+public func - <L1: CTVFLConstantConvertible, L2: CTVFLVariableConvertible>(lhs: L1, rhs: L2) -> CTVFLSpacedSyntax<CTVFLConstantLexicon, CTVFLVariableLexicon> {
+    return .init(lhs: .init(constant: L1._makeConstant(lhs)), rhs: .init(variable: L2._makeVariable(rhs)))
+}
+
+public func - <L1: CTVFLVariableConvertible, L2: CTVFLConstantConvertible>(lhs: L1, rhs: L2) -> CTVFLSpacedSyntax<CTVFLVariableLexicon, CTVFLConstantLexicon> {
+    return .init(lhs: .init(variable: L1._makeVariable(lhs)), rhs: .init(constant: L2._makeConstant(rhs)))
+}
+
+public func - <L1: CTVFLVariableConvertible, L2: CTVFLVariableConvertible>(lhs: L1, rhs: L2) -> CTVFLSpacedSyntax<CTVFLVariableLexicon, CTVFLVariableLexicon> {
+    return .init(lhs: .init(variable: L1._makeVariable(lhs)), rhs: .init(variable: L2._makeVariable(rhs)))
+}
+
+// MARK: Edge-to-Edge Connection
+public func | <L1, L2>(lhs: L1, rhs: L2) -> CTVFLEdgeToEdgeSyntax<L1, L2> {
+    return .init(lhs: lhs, rhs: rhs)
+}
+
+public func | <L1: CTVFLVariableConvertible, L2>(lhs: L1, rhs: L2) -> CTVFLEdgeToEdgeSyntax<CTVFLVariableLexicon, L2> {
+    return .init(lhs: .init(variable: L1._makeVariable(lhs)), rhs: rhs)
+}
+
+public func | <L1, L2: CTVFLVariableConvertible>(lhs: L1, rhs: L2) -> CTVFLEdgeToEdgeSyntax<L1, CTVFLVariableLexicon> {
+    return .init(lhs: lhs, rhs: .init(variable: L2._makeVariable(rhs)))
+}
+
+public func | <L1: CTVFLVariableConvertible, L2: CTVFLVariableConvertible>(lhs: L1, rhs: L2) -> CTVFLEdgeToEdgeSyntax<CTVFLVariableLexicon, CTVFLVariableLexicon> {
+    return .init(lhs: .init(variable: L1._makeVariable(lhs)), rhs: .init(variable: L2._makeVariable(rhs)))
 }
