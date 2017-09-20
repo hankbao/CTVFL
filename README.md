@@ -1,4 +1,4 @@
-# CTFVL: Compile-Time Visual Format Language
+# CTVFL: Compile-Time Visual Format Language
 
 CTVFL is a tiny framework offers compile-time safe Visual Format Langauge to
 make Auto Layout painless on Apple platforms.
