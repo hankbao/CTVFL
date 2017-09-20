@@ -39,7 +39,7 @@ let constraint8 = withVFL(H: |-find - findNext - findField.where(>=20)-|)
 ### Making and Installing Constraints with a Collective Control Point
 
 Wrapping `withVFL` function calls with `constrain` function's closure makes
-the framework installs the generated constraints and encapsultes them in
+the framework installs the generated constraints and encapsulates them in
 a `CTVFLConstraintGroup` instance. You can control the whole group of
 generated constriants with this instance.
 
